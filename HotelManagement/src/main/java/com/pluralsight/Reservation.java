@@ -1,72 +1,62 @@
 package com.pluralsight;
 
 public class Reservation {
-    private String RoomType;
-    private double price;
-    private int NumberOfNights;
-    private boolean isWeekend;
+    public class Reservation {
+        private String roomType;
+        private int numberOfNights;
+        private boolean isWeekend;
 
-
-    //Constructor
-    public Reservation(String RoomType, double price, int NumberOfNight, boolean isWeekend) {
-        this.RoomType = RoomType;
-        this.price = price;
-        this.NumberOfNights = NumberOfNight;
-        this.isWeekend = isWeekend;
-
-        setPricePerNight(); //Calculate price base on room type and weekend stay
-    }
-
-    //Set price per night base on room type and isWeekend
-    public void setPricePerNight() {
-        if (RoomType.equalsIgnoreCase("king")) {
-            price = 139.00;
-        } else if (RoomType.equalsIgnoreCase("double")) {
-            price = 124.00;
-        } else {
-            price = 0.0; //please put valid input
+        public Reservation(String roomType, int numberOfNights, boolean isWeekend) {
+            this.roomType = roomType;
+            this.numberOfNights = numberOfNights;
+            this.isWeekend = isWeekend;
         }
-        if (isWeekend) {
-            price *= 1.10; // 10% increase from the original price
 
+        public String getRoomType() {
+            return this.roomType;
         }
-    }
 
-    //Getter and Setter
-    public String getRoomType() {
-        return RoomType;
-    }
+        public void setRoomType(String roomType) {
+            this.roomType = roomType;
+        }
 
-    public void setRoomType(String roomType) {
-        RoomType = roomType;
-        setPricePerNight(); //Recalculate price when room type changes
-    }
+        public double getPrice() {
+            //roomType == "king", price = 139
+            //roomType == "double", price = 124
 
-    public double getPrice() {
-        return price;
-    }
+            double originalPrice = 0;
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+            if (this.roomType.equalsIgnoreCase("king")) {
+                originalPrice = 139;
+            } else {
+                originalPrice = 124;
+            }
 
-    public int getNumberOfNights() {
-        return NumberOfNights;
-    }
+            if (this.isWeekend) {
+                originalPrice *= 1.10; //Increases by 10%
+            }
 
-    public void setNumberOfNights(int numberOfNights) {
-        NumberOfNights = numberOfNights;
-    }
+            return originalPrice;
+        }
 
-    public boolean isWeekend() {
-        return isWeekend;
-    }
+        public int getNumberOfNights() {
+            return this.numberOfNights;
+        }
 
-    public void setWeekend(boolean weekend) {
-        isWeekend = weekend;
-    }
+        public void setNumberOfNights(int numberOfNights) {
+            this.numberOfNights = numberOfNights;
+        }
 
-    public double getReservationTotal() {
-        return price * NumberOfNights;
+        public boolean isWeekend() {
+            return this.isWeekend;
+        }
+
+        public void setIsWeekend(boolean isWeekend) {
+            this.isWeekend = isWeekend;
+        }
+
+        public double getReservationTotal() {
+            return getPrice() * getNumberOfNights();
+        }
     }
 }
